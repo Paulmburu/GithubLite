@@ -105,8 +105,9 @@ object Libraries {
             const val archCore = "androidx.arch.core:core-testing:2.1.0"
 
             object Ext {
-                private const val version = "1.1.2"
-                const val junit = "androidx.test.ext:junit-ktx:$version"
+                private const val version = "1.1.3"
+                const val junitKTX = "androidx.test.ext:junit-ktx:$version"
+                const val junit = "androidx.test.ext:junit:$version"
             }
 
             const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
