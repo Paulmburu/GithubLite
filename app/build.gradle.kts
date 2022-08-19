@@ -41,6 +41,16 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(Libraries.Modules.common))
+    implementation(project(Libraries.Modules.local))
+    implementation(project(Libraries.Modules.network))
+    implementation(project(Libraries.Modules.repository))
+    implementation(project(Libraries.Modules.domain))
+
+    //Ktx Core
+    implementation(Libraries.AndroidX.coreKtx)
+
+    //UI
     implementation(Libraries.AndroidX.appcompat)
     implementation(Libraries.Google.material)
     implementation(Libraries.AndroidX.Constraint.constraintLayout)
@@ -60,7 +70,7 @@ dependencies {
 
     androidTestImplementation(Libraries.AndroidX.Test.runner)
     androidTestImplementation(Libraries.AndroidX.Test.rules)
-    androidTestImplementation(Libraries.AndroidX.Test.Ext.junit)
+    androidTestImplementation(Libraries.AndroidX.Test.Ext.junitKTX)
     androidTestImplementation(Libraries.AndroidX.Test.espressoCore)
     androidTestImplementation(Libraries.Kakao.kakao)
     androidTestImplementation (Libraries.Hamcrest.hamcrest)
