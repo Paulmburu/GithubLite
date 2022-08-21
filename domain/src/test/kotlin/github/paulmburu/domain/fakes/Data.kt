@@ -1,6 +1,7 @@
 package github.paulmburu.domain.fakes
 
 import github.paulmburu.domain.models.Follower
+import github.paulmburu.domain.models.Following
 import github.paulmburu.domain.models.Repo
 import github.paulmburu.domain.models.User
 
@@ -38,19 +39,19 @@ object Data {
         )
     }
 
-    object Following {
+    object FollowingData {
         val response = arrayListOf(
-            Follower(
+            Following(
                 id = 24954467,
                 login = "JohnDoe",
                 avatarUrl = "https://avatars.githubusercontent.com/u/24954467?v=4",
             ),
-            Follower(
+            Following(
                 id = 24954468,
                 login = "JaneDoe",
                 avatarUrl = "https://avatars.githubusercontent.com/u/24954467?v=4",
             ),
-            Follower(
+            Following(
                 id = 24954469,
                 login = "JimmyDoe",
                 avatarUrl = "https://avatars.githubusercontent.com/u/24954467?v=4",

@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.Test
 
 class GetFollowingUseCaseTest {
-    private lateinit var getFollowingUseCaseTest: GetFollowersBaseUseCase
+    private lateinit var getFollowingUseCaseTest: GetFollowingBaseUseCase
 
     @Before
     fun setUp() {
@@ -26,10 +26,10 @@ class GetFollowingUseCaseTest {
             getFollowingUseCaseTest("Paulmburu").collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        Truth.assertThat(resource.data).isEqualTo(Data.Following.response)
+                        Truth.assertThat(resource.data).isEqualTo(Data.FollowingData.response)
                     }
                     is Resource.Error -> {
-                        Truth.assertThat(resource.data).isNotEqualTo(Data.Following.response)
+                        Truth.assertThat(resource.data).isNotEqualTo(Data.FollowingData.response)
                     }
                 }
             }

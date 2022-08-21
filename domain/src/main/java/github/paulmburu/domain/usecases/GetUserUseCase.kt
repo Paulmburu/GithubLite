@@ -12,7 +12,7 @@ typealias GetUserBaseUseCase = FlowBaseUseCase<String, Flow<Resource<User>>>
 class GetUserUseCase constructor(private val githubRepository: GithubRepository) :
     GetUserBaseUseCase{
     override suspend fun invoke(params: String): Flow<Resource<User>> = flow {
-        val result = githubRepository.getUser()
+        val result = githubRepository.getUser(params)
         result.collect { resource ->
             when (resource) {
                 is Resource.Success -> {
