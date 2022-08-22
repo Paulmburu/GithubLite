@@ -19,6 +19,6 @@ interface GithubApi {
     @GET("users/{user}/followers")
     suspend fun fetchFollowers(@Path("user")user: String): Response<List<FollowerDto>>
 
-    @GET("users/{user}/repos")
+    @GET("users/{user}/following")
     suspend fun fetchFollowing(@Path("user")user: String): Response<List<FollowingDto>>
 }

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="github.paulmburu.githublite.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:name="github.paulmburu.githublite.ui.UserProfileFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_user_profile">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_UserProfileFragment_to_RepositoriesFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="github.paulmburu.githublite.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="github.paulmburu.githublite.ui.RepositoriesFragment"
+        android:label="@string/repositories"
+        tools:layout="@layout/fragment_repositories">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_RepositoriesFragment_to_UserProfileFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

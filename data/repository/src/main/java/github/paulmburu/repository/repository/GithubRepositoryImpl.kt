@@ -3,12 +3,10 @@ package github.paulmburu.repository.repository
 import github.paulmburu.common.Resource
 import github.paulmburu.domain.models.Follower
 import github.paulmburu.domain.models.Following
+import github.paulmburu.domain.models.Repo
 import github.paulmburu.domain.models.User
 import github.paulmburu.domain.repository.GithubRepository
-import github.paulmburu.local.dao.FollowersDao
-import github.paulmburu.local.dao.FollowingDao
-import github.paulmburu.local.dao.RepoDao
-import github.paulmburu.local.dao.UserDao
+import github.paulmburu.local.dao.*
 import github.paulmburu.local.mappers.toDomain
 import github.paulmburu.local.mappers.toLocal
 import github.paulmburu.network.api.GithubApi
@@ -23,7 +21,7 @@ import javax.inject.Inject
 class GithubRepositoryImpl @Inject constructor(
     private val githubApi: GithubApi,
     private val userDao: UserDao,
-    private val repoDao: RepoDao,
+    private val reposDao: ReposDao,
     private val followersDao: FollowersDao,
     private val followingDao: FollowingDao
 ) : GithubRepository {
@@ -73,18 +71,64 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun fetchRepos(username: String): Flow<Resource<List<Repo>>> = flow{
+        try {
+            val result = githubApi.fetchRepos(user = username)
+
+            when {
+                result.isSuccessful -> {
+                    emit(
+                        Resource.Success(
+                            result.body()!!.map { repoDto -> repoDto.toDomain() })
+                    )
+                    reposDao.insertRepos(
+                        result.body()!!.map { repoDto -> repoDto.toDomain().toLocal() }
+                    )
+                }
+                else -> emit(Resource.Error(message = result.message()))
+            }
+        } catch (e: IOException) {
+            emit(Resource.Error(message = e.localizedMessage))
+            Timber.e(e)
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
+    override suspend fun insertRepos(repos: List<Repo>) {
+        reposDao.insertRepos(repos = repos.map { repo -> repo.toLocal() })
+    }
+
+    override fun getRepos(username: String): Flow<Resource<List<Repo>>> = flow{
+        try {
+            reposDao.getRepos().collect {
+                val data = it.map { repoEntity -> repoEntity.toDomain() }
+                emit(
+                    Resource.Success(
+                        data
+                    )
+                )
+            }
+        } catch (e: IOException) {
+            emit(Resource.Error(message = e.localizedMessage))
+            Timber.e(e)
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
     override fun fetchFollowers(username: String): Flow<Resource<List<Follower>>> = flow {
         try {
             val result = githubApi.fetchFollowers(user = username)
 
             when {
                 result.isSuccessful -> {
-                    followersDao.insertFollowers(
-                        result.body()!!.map { followerDto -> followerDto.toDomain().toLocal() }
-                    )
                     emit(
                         Resource.Success(
                             result.body()!!.map { followerDto -> followerDto.toDomain() })
+                    )
+                    followersDao.insertFollowers(
+                        result.body()!!.map { followerDto -> followerDto.toDomain().toLocal() }
                     )
                 }
                 else -> emit(Resource.Error(message = result.message()))
@@ -125,12 +169,12 @@ class GithubRepositoryImpl @Inject constructor(
 
             when {
                 result.isSuccessful -> {
-                    followingDao.insertFollowing(
-                        result.body()!!.map { followingDto -> followingDto.toDomain().toLocal() }
-                    )
                     emit(
                         Resource.Success(
                             result.body()!!.map { followerDto -> followerDto.toDomain() })
+                    )
+                    followingDao.insertFollowing(
+                        result.body()!!.map { followingDto -> followingDto.toDomain().toLocal() }
                     )
                 }
                 else -> emit(Resource.Error(message = result.message()))

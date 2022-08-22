@@ -32,8 +32,8 @@ object LocalModule {
     }
 
     @Provides
-    fun providesRepoDao(database: GithubDatabase): RepoDao {
-        return database.repoDao
+    fun providesReposDao(database: GithubDatabase): ReposDao {
+        return database.reposDao
     }
 
     @Provides

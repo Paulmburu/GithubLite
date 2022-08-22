@@ -34,7 +34,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -60,6 +60,13 @@ dependencies {
     //Hilt
     implementation(Libraries.Google.Hilt.android)
     kapt(Libraries.Google.Hilt.compiler)
+
+    // Glide
+    implementation(Libraries.Glide.glide)
+    annotationProcessor(Libraries.Glide.annotationProcessor)
+
+    //Timber
+    implementation(Libraries.Timber.timber)
 
     //Test
     testImplementation(Libraries.JUnit.junit)

@@ -8,7 +8,7 @@ import github.paulmburu.local.models.RepoEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RepoDao {
+interface ReposDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(repos: List<RepoEntity>)
 
