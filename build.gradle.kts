@@ -5,12 +5,15 @@ buildscript {
         mavenCentral()
         maven(url = "https://plugins.gradle.org/m2/")
     }
+
+    val jacocoVersion by extra("0.2")
     dependencies {
 
         classpath(Libraries.GradlePlugin.androidGradlePlugin)
         classpath(Libraries.Kotlin.gradlePlugin)
         classpath(Libraries.Google.Hilt.gradlePlugin)
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+        classpath("com.hiya:jacoco-android:$jacocoVersion")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files

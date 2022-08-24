@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/error_state_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_repositories.xml" value="0.1286231884057971" />
-        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.17119565217391305" />
+        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.33" />
       </map>
     </option>
   </component>

@@ -1,6 +1,6 @@
 # GithubLite
 
-Github case study using Android Architecture Components, in 100% Kotlin, using Android Jetpack Components.
+Developed using Android Architecture Components, in 100% Kotlin, using Android Jetpack Components.
 
 ## Development Environment
 
@@ -58,7 +58,7 @@ The data layer is responsible for providing data to the domain layer. It contain
 
 ### 3. Presentation
 
-The presentation layer contains components involved in showing information to the user. The main part of this layer are the views(activity) and viewmodels.
+The presentation layer contains components involved in showing information to the user. The main part of this layer are the views(activity and fragments) and viewmodels.
 
 ## Testing
 

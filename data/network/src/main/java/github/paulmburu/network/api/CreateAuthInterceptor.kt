@@ -10,6 +10,7 @@ class CreateAuthInterceptor :
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
             .newBuilder()
+            .addHeader(Constants.HttpHeaders.AUTHORIZATION, BuildConfig.ACCESS_TOKEN)
             .build()
 
         return chain.proceed(request)

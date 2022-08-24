@@ -132,21 +132,18 @@ class UserProfileFragment : Fragment() {
         viewModel.followersResult.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 is FetchFollowersUiState.Loading -> {
-//                    displayLoadingState()
+                    displayFollowersLoadingState()
                 }
 
                 is FetchFollowersUiState.Failure -> {
-//                    displayFailedState(message = uiState.message)
                     Timber.d("Failure: ${uiState.message}")
                 }
 
                 is FetchFollowersUiState.Success -> {
                     displayFollowersSuccessState(uiState.followers)
-                    Timber.d("Success: ${uiState.followers}")
                 }
 
                 is FetchFollowersUiState.Empty -> {
-//                    displayEmptyState()
                     Timber.d("Empty data")
                 }
             }
@@ -155,7 +152,7 @@ class UserProfileFragment : Fragment() {
         viewModel.followingResult.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 is FetchFollowingUiState.Loading -> {
-//                    displayLoadingState()
+                    displayFollowingLoadingState()
                 }
 
                 is FetchFollowingUiState.Failure -> {
@@ -201,12 +198,28 @@ class UserProfileFragment : Fragment() {
         followerAdapter.submitList(followers)
         with(binding){
             followersViews.isVisible = true
+            loadingFollowersProgressBar.isVisible = false
         }
     }
     private fun displayFollowingSuccessState(following: List<FollowingPresentation>) {
         followingAdapter.submitList(following)
         with(binding){
             followingViews.isVisible = true
+            loadingFollowingProgressBar.isVisible = false
+        }
+    }
+
+    private fun displayFollowersLoadingState(){
+        with(binding){
+            loadingFollowersProgressBar.isVisible = true
+            followersViews.isVisible = false
+        }
+    }
+
+    private fun displayFollowingLoadingState(){
+        with(binding){
+            loadingFollowingProgressBar.isVisible = true
+            followingViews.isVisible = false
         }
     }
     override fun onDestroyView() {

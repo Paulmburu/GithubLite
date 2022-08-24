@@ -25,4 +25,6 @@
     <string name="erm_oops">Erm.. Oops..</string>
     <string name="eye_think_something_went_wrong_there">Eye think something went wrong there..</string>
     <string name="try_again">Try Again !</string>
+    <string name="_followers">Followers</string>
+    <string name="_following">Following</string>
 </resources>
