@@ -3,11 +3,14 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id(Libraries.Jacoco.jacocoAndroid)
+}
+
+jacoco {
+    toolVersion = Libraries.Jacoco.version
 }
 
 android {
-
-
     defaultConfig {
         applicationId = "github.paulmburu.githublite"
         compileSdk = 32
@@ -34,7 +37,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -60,6 +63,13 @@ dependencies {
     //Hilt
     implementation(Libraries.Google.Hilt.android)
     kapt(Libraries.Google.Hilt.compiler)
+
+    // Glide
+    implementation(Libraries.Glide.glide)
+    annotationProcessor(Libraries.Glide.annotationProcessor)
+
+    //Timber
+    implementation(Libraries.Timber.timber)
 
     //Test
     testImplementation(Libraries.JUnit.junit)

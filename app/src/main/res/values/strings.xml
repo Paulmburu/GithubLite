@@ -8,5 +8,23 @@
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="user_profile">User Profile</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="menu_search">Search</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="followers">followers</string>
+    <string name="nothing_to_see_here">Nothing to see here</string>
+    <string name="company">Company</string>
+    <string name="company_imageview">Company Imageview</string>
+    <string name="following">following</string>
+    <string name="repositories">Repositories</string>
+    <string name="nairobi_kenya">Nairobi, Kenya</string>
+    <string name="search_a_github_user_profile">Search a github user profile</string>
+    <string name="location">Location</string>
+    <string name="search">Search</string>
+    <string name="erm_oops">Erm.. Oops..</string>
+    <string name="eye_think_something_went_wrong_there">Eye think something went wrong there..</string>
+    <string name="try_again">Try Again !</string>
+    <string name="_followers">Followers</string>
+    <string name="_following">Following</string>
 </resources>

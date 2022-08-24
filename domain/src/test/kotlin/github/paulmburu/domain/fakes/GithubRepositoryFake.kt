@@ -28,6 +28,20 @@ class GithubRepositoryFake : GithubRepository {
         return flowOf(Resource.Success(Data.user))
     }
 
+    override fun fetchRepos(username: String): Flow<Resource<List<Repo>>> = flow {
+        emit(Resource.Success(Data.Repos.response))
+    }
+
+    override suspend fun insertRepos(repos: List<Repo>) {
+        repos.forEach { repo ->
+            reposDatabase[repo.id] = repo
+        }
+    }
+
+    override fun getRepos(username: String): Flow<Resource<List<Repo>>> {
+        return flowOf(Resource.Success(Data.Repos.response))
+    }
+
 
     override fun fetchFollowers(username: String): Flow<Resource<List<Follower>>> = flow {
         emit(Resource.Success(Data.Followers.response))

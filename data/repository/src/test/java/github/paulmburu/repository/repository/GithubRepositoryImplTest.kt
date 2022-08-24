@@ -5,7 +5,7 @@ import github.paulmburu.common.Resource
 import github.paulmburu.domain.repository.GithubRepository
 import github.paulmburu.local.dao.FollowersDao
 import github.paulmburu.local.dao.FollowingDao
-import github.paulmburu.local.dao.RepoDao
+import github.paulmburu.local.dao.ReposDao
 import github.paulmburu.local.dao.UserDao
 import github.paulmburu.network.api.GithubApi
 import github.paulmburu.repository.util.Data
@@ -23,7 +23,7 @@ class GithubRepositoryImplTest {
 
     @Before
     fun setUp() {
-        val taskApi = mockk<GithubApi> {
+        val githubApi = mockk<GithubApi> {
             coEvery {
                 fetchUser(Data.query)
             } returns Response.success(Data.userQueryResponse)
@@ -41,13 +41,13 @@ class GithubRepositoryImplTest {
             } returns Response.success(Data.followingQueryResponse)
         }
 
-        val tasksDao = mockk<UserDao> {
+        val userDao = mockk<UserDao> {
             coEvery {
                 findUser(search = Data.query)
-            } returns flow { listOf(Data.userResponse)}
+            } returns flow { listOf(Data.userResponse) }
         }
 
-        val repoDao = mockk<RepoDao> {
+        val reposDao = mockk<ReposDao> {
             coEvery {
                 getRepos()
             } returns flow { Data.reposResponse }
@@ -65,14 +65,37 @@ class GithubRepositoryImplTest {
             } returns flow { Data.followingResponse }
         }
 
-        githubRepository = GithubRepositoryImpl(taskApi, tasksDao, repoDao, followersDao, followingDao)
+        githubRepository =
+            GithubRepositoryImpl(githubApi, userDao, reposDao, followersDao, followingDao)
     }
 
 
     @Test
-    fun `when fetch user is called, returns resource of user response containing user information`() = runBlocking {
+    fun `when fetch user is called, returns resource of user response containing user information`() =
+        runBlocking {
+            val response = githubRepository.fetchUser(username = Data.query).first()
+            Truth.assertThat(response).isInstanceOf(Resource.Success::class.java)
+        }
 
-        val response = githubRepository.fetchUser(username = Data.query).first()
-        Truth.assertThat(response).isInstanceOf(Resource.Success::class.java)
-    }
+    @Test
+    fun `when fetch repos is called, returns resource of repo response containing repositories information`() =
+        runBlocking {
+            val response = githubRepository.fetchRepos(username = Data.query).first()
+            Truth.assertThat(response).isInstanceOf(Resource.Success::class.java)
+        }
+
+    @Test
+    fun `when fetch followers is called, returns resource of follower response containing followers information`() =
+        runBlocking {
+            val response = githubRepository.fetchFollowers(username = Data.query).first()
+            Truth.assertThat(response).isInstanceOf(Resource.Success::class.java)
+        }
+
+    @Test
+    fun `when fetch following is called, returns resource of following response containing following information`() =
+        runBlocking {
+            val response = githubRepository.fetchFollowing(username = Data.query).first()
+            Truth.assertThat(response).isInstanceOf(Resource.Success::class.java)
+        }
+
 }

@@ -23,7 +23,7 @@ fun UserDto.toDomain(): User {
 
 
 fun RepoDto.toDomain(): Repo {
-    return Repo(id = id, name = name, description = description, stargazersCount = stargazersCount)
+    return Repo(id = id, name = name, description = description ?: "", stargazersCount = stargazersCount)
 }
 
 fun FollowerDto.toDomain(): Follower {

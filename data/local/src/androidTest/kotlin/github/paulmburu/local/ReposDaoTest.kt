@@ -5,7 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth
-import github.paulmburu.local.dao.RepoDao
+import github.paulmburu.local.dao.ReposDao
 import github.paulmburu.local.database.GithubDatabase
 import github.paulmburu.local.mappers.toDomain
 import github.paulmburu.local.models.RepoEntity
@@ -20,10 +20,10 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class RepoDaoTest {
+class ReposDaoTest {
 
     private lateinit var database: GithubDatabase
-    private lateinit var repoDao: RepoDao
+    private lateinit var reposDao: ReposDao
 
     @Before
     fun setUp() {
@@ -32,7 +32,7 @@ class RepoDaoTest {
             GithubDatabase::class.java
         ).build()
 
-        repoDao = database.repoDao
+        reposDao = database.reposDao
     }
 
     @Test
@@ -52,9 +52,9 @@ class RepoDaoTest {
             ),
         )
 
-        repoDao.insertRepos(repos)
+        reposDao.insertRepos(repos)
 
-        val response = repoDao.getRepos().first()
+        val response = reposDao.getRepos().first()
         Truth.assertThat(response.size).isGreaterThan(1)
         Truth.assertThat(response.first().id).isEqualTo(repos.first().id)
 
@@ -78,9 +78,9 @@ class RepoDaoTest {
 
             )
 
-        repoDao.insertRepos(repos)
+        reposDao.insertRepos(repos)
 
-        repoDao.getRepos().collect {
+        reposDao.getRepos().collect {
             val data = it.map { repoEntity -> repoEntity.toDomain() }
             Truth.assertThat(data.size).isEqualTo(2)
             Truth.assertThat(data.last().id).isEqualTo(repos.last().id)
