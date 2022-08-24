@@ -22,7 +22,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "ACCESS_TOKEN", getAccessTokenFromFile())
+//        buildConfigField("String", "ACCESS_TOKEN", getAccessTokenFromFile())
     }
 
     buildTypes {
@@ -69,11 +69,11 @@ dependencies {
     implementation(Libraries.OkHttp.mockWebServer)
 }
 
-fun getAccessTokenFromFile(): String {
-    val secretsFile = file("secrets.properties")
-    val secrets = Properties()
-    if (secretsFile.exists()) {
-        secrets.load(FileInputStream(secretsFile))
-    }
-    return secrets.getProperty("ACCESS_TOKEN", "")
-}
+//fun getAccessTokenFromFile(): String {
+//    val secretsFile = file("secrets.properties")
+//    val secrets = Properties()
+//    if (secretsFile.exists()) {
+//        secrets.load(FileInputStream(secretsFile))
+//    }
+//    return secrets.getProperty("ACCESS_TOKEN", "")
+//}
