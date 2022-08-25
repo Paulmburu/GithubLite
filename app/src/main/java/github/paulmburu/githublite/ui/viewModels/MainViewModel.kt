@@ -62,22 +62,31 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun performSearch() = viewModelScope.launch {
-        if (searchString.value.isNullOrEmpty()) return@launch
+    fun performSearch() {
+        if (searchString.value.isNullOrEmpty()) return
 
         val query = searchString.value.toString()
         if (connectivityProvider.isNetworkAvailable()) {
-            searchFromInternet(query)
-            fetchFollowers(query)
-            fetchFollowing(query)
-            fetchRepos(query)
+            viewModelScope.launch {
+                searchFromInternet(query)
+                fetchFollowers(query)
+                fetchFollowing(query)
+                fetchRepos(query)
+            }
         } else {
-            searchFromDatabase(query)
-            getFollowers(query)
-            getFollowing(query)
-            getRepos(query)
+            viewModelScope.launch {
+                searchFromDatabase(query)
+            }
+            viewModelScope.launch {
+                getFollowers(query)
+            }
+            viewModelScope.launch {
+                getFollowing(query)
+            }
+            viewModelScope.launch {
+                getRepos(query)
+            }
         }
-
     }
 
     private suspend fun searchFromInternet(userQuery: String) {
